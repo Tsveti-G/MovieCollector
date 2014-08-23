@@ -222,13 +222,14 @@ sub SearchMovies{
   $f2->destroy();
   $f2=undef;
   
-  my $tableMovies = $f1->Table(-rows => $#movies, -columns => 5, -takefocus => 1);
+  my $rows = ($#movies + 1) / 5;
+  my $tableMovies = $f1->Table(-rows => $rows + 1, -columns => 5, -takefocus => 1);
   $tableMovies->put(0, 0, "Title");
   $tableMovies->put(0, 1, "Year");
   $tableMovies->put(0, 2, "Genre");
   $tableMovies->put(0, 3, "Director");
   $tableMovies->put(0, 4, "Cast");
-  for (my $i=1; $i<$#movies + 1; $i++){
+  for (my $i=1; $i<=$rows; $i++){
     for (my $j=0; $j<5; $j++){
       $tableMovies->put($i, $j, shift(@movies));
     }
